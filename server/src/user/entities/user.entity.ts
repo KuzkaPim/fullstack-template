@@ -13,4 +13,7 @@ export class UserEntity {
 
 	@Column({ type: 'text', nullable: true })
 	token: string | null;
+
+	@Column({ default: 'user' })
+	role: 'user' | 'admin';
 }

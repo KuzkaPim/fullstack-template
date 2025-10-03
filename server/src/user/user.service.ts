@@ -28,6 +28,10 @@ export class UserService {
 		return this.userRepo.findOneBy({ username });
 	}
 
+	getOneByToken(token: string): Promise<UserEntity | null> {
+		return this.userRepo.findOneBy({ token });
+	}
+
 	async removeTokenByToken(token: string): Promise<void> {
 		await this.userRepo.update({ token }, { token: null });
 	}
