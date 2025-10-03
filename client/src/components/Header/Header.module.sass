@@ -1,0 +1,43 @@
+.header
+	padding: 12px 0
+	background: $color-light
+
+.container
+	display: flex
+	justify-content: space-between
+	align-items: center
+
+.logo
+	cursor: default
+	text-decoration: none
+
+.title
+	font-size: 32px
+	color: $color-blue
+	transition: .15s ease
+	&:hover, &:focus-visible
+		color: color.adjust($color-blue, $lightness: -10%)
+
+.navList, .userInfo
+	display: flex
+	gap: 20px
+	align-items: center
+
+.link, .logout
+	font-size: 14px
+	cursor: default
+	text-decoration: none
+	padding: 4px 12px
+	background: $color-blue
+	color: $color-white
+	border-radius: 12px
+	border: 1px solid $color-blue
+	transition: .15s ease
+	&:hover, &:focus-visible
+		background: $color-white
+		color: $color-blue
+
+.username
+	font-size: 18px
+	font-weight: 700
+	color: $color-blue
