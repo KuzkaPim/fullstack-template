@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Header } from '@/components';
+import { ToastContainer } from 'react-toastify';
 import '../styles/index.sass';
 
 export const metadata: Metadata = {
@@ -17,6 +18,7 @@ const RootLayout = ({ children }: Props) => {
             <body>
                 <Header />
                 <main>{children}</main>
+                <ToastContainer position='bottom-right' />
             </body>
         </html>
     );

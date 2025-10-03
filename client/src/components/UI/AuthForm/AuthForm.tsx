@@ -16,7 +16,7 @@ const AuthForm = ({ type, btnLabel, title }: Props) => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
-    const { signUp, signIn, isLoading } = useAuthStore();
+    const { user, signUp, signIn, isLoading } = useAuthStore();
     const router = useRouter();
 
     const isUsernameValid = username.trim().length >= 2;
@@ -32,7 +32,7 @@ const AuthForm = ({ type, btnLabel, title }: Props) => {
             await signUp({ username, password });
         }
 
-        router.push('/');
+        if (user) router.push('/');
     };
 
     return (

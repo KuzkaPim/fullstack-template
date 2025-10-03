@@ -2,6 +2,7 @@ import { UserInterface } from '@/types';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { axiosClient } from '@/lib';
+import { toast } from 'react-toastify';
 
 interface UserData {
     username: string;
@@ -23,7 +24,7 @@ export const useAuthStore = create<AuthStore>()(
             user: null,
             isLoading: false,
 
-            async signUp(data: UserData) {
+            async signUp(data: UserData): Promise<void> {
                 set({ isLoading: true });
 
                 try {
@@ -33,14 +34,16 @@ export const useAuthStore = create<AuthStore>()(
                     );
 
                     set({ user: res.data });
+                    toast.success('Вы успешно зарегистрированы');
                 } catch (error) {
                     console.error('Ошибка при регистрации:', error);
+                    toast.error('Ошибка при регистрации');
                 } finally {
                     set({ isLoading: false });
                 }
             },
 
-            async signIn(data: UserData) {
+            async signIn(data: UserData): Promise<void> {
                 set({ isLoading: true });
 
                 try {
@@ -50,8 +53,10 @@ export const useAuthStore = create<AuthStore>()(
                     );
 
                     set({ user: res.data });
+                    toast.success('Вы успешно вошли');
                 } catch (error) {
                     console.error('Ошибка при входе:', error);
+                    toast.error('Ошибка при авторизации');
                 } finally {
                     set({ isLoading: false });
                 }
@@ -62,9 +67,12 @@ export const useAuthStore = create<AuthStore>()(
 
                 try {
                     await axiosClient.get('/auth/sign-out');
+
                     set({ user: null });
+                    toast.success('Вы успешно вышли');
                 } catch (error) {
                     console.error('Ошибка при выходе:', error);
+                    toast.error('Ошибка при выходе');
                 } finally {
                     set({ isLoading: false });
                 }
