@@ -1,7 +1,7 @@
 import { UserInterface } from '@/types';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { axiosClient } from '@/lib';
+import { axiosClient, handleError } from '@/lib';
 import { toast } from 'react-toastify';
 
 interface UserData {
@@ -37,8 +37,7 @@ export const useAuthStore = create<AuthStore>()(
                     toast.success('Вы успешно зарегистрированы');
                     return true;
                 } catch (error) {
-                    console.error('Ошибка при регистрации:', error);
-                    toast.error('Ошибка при регистрации');
+                    handleError(error, 'Ошибка при регистрации');
                     return false;
                 } finally {
                     set({ isLoading: false });
@@ -58,8 +57,7 @@ export const useAuthStore = create<AuthStore>()(
                     toast.success('Вы успешно вошли');
                     return true;
                 } catch (error) {
-                    console.error('Ошибка при входе:', error);
-                    toast.error('Ошибка при авторизации');
+                    handleError(error, 'Ошибка при авторизации');
                     return false;
                 } finally {
                     set({ isLoading: false });
@@ -75,8 +73,7 @@ export const useAuthStore = create<AuthStore>()(
                     set({ user: null });
                     toast.success('Вы успешно вышли');
                 } catch (error) {
-                    console.error('Ошибка при выходе:', error);
-                    toast.error('Ошибка при выходе');
+                    handleError(error, 'Ошибка при выходе');
                 } finally {
                     set({ isLoading: false });
                 }
