@@ -10,7 +10,7 @@ export class UserService {
 		private readonly userRepo: Repository<UserEntity>,
 	) {}
 
-	create(userData: Omit<UserEntity, 'id'>): Promise<UserEntity> {
+	create(userData: Omit<UserEntity, 'id' | 'role'>): Promise<UserEntity> {
 		const user = this.userRepo.create({
 			username: userData.username,
 			password: userData.password,

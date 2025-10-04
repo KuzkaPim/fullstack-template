@@ -27,12 +27,12 @@ const AuthForm = ({ type, btnLabel, title }: Props) => {
         e.preventDefault();
 
         if (type === 'sign-in') {
-            await signIn({ username, password });
+            const success = await signIn({ username, password });
+            if (success) router.push('/');
         } else {
-            await signUp({ username, password });
+            const success = await signUp({ username, password });
+            if (success) router.push('/');
         }
-
-        if (user) router.push('/');
     };
 
     return (

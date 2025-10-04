@@ -13,8 +13,8 @@ interface AuthStore {
     user: UserInterface | null;
     isLoading: boolean;
 
-    signUp: (data: UserData) => Promise<void>;
-    signIn: (data: UserData) => Promise<void>;
+    signUp: (data: UserData) => Promise<boolean>;
+    signIn: (data: UserData) => Promise<boolean>;
     signOut: () => Promise<void>;
 }
 
@@ -24,7 +24,7 @@ export const useAuthStore = create<AuthStore>()(
             user: null,
             isLoading: false,
 
-            async signUp(data: UserData): Promise<void> {
+            async signUp(data: UserData): Promise<boolean> {
                 set({ isLoading: true });
 
                 try {
@@ -35,15 +35,17 @@ export const useAuthStore = create<AuthStore>()(
 
                     set({ user: res.data });
                     toast.success('Вы успешно зарегистрированы');
+                    return true;
                 } catch (error) {
                     console.error('Ошибка при регистрации:', error);
                     toast.error('Ошибка при регистрации');
+                    return false;
                 } finally {
                     set({ isLoading: false });
                 }
             },
 
-            async signIn(data: UserData): Promise<void> {
+            async signIn(data: UserData): Promise<boolean> {
                 set({ isLoading: true });
 
                 try {
@@ -54,9 +56,11 @@ export const useAuthStore = create<AuthStore>()(
 
                     set({ user: res.data });
                     toast.success('Вы успешно вошли');
+                    return true;
                 } catch (error) {
                     console.error('Ошибка при входе:', error);
                     toast.error('Ошибка при авторизации');
+                    return false;
                 } finally {
                     set({ isLoading: false });
                 }
