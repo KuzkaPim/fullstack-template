@@ -1,5 +1,7 @@
+import { Main } from '@/pageComponents';
+
 const page = () => {
-    return <>sdfsfd</>;
+    return <Main />;
 };
 
 export default page;
